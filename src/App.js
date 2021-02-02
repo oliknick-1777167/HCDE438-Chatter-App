@@ -1,28 +1,30 @@
 
-import {useState} from 'react'
+import {useState} from 'react';
 import './App.css';
-import TextInput from './Textinput'
+import TextInput from './TextInput';
+import Message from './Message'
 
 function App() {
-  const [messages,setMessages] = useState([{text:'hello'}])
-  return (
-    <div className="App">
-       <header className="header"> 
-          <div className='logo'/>
-          CHATTER
-       </header>
+  const [messages,setMessages] = useState([])
 
-        <div className="message">
-          {messages[0].text}
+  return <div className="App">
+ 
+    <header className="header">
+      <div className="logo" />
+      Chatter
+    </header>
 
-        </div>
+    <main className="messages">
+      {messages.map((m,i)=> {
+        return <Message key={i} {...m} />
+      })}
+    </main>
 
-        <TextInput 
-          send={(t)=> setMessages([{text:t}])}
-        />
+    <TextInput 
+      send={(t)=> setMessages( [{text:t}, ...messages] )}
+    />
 
-    </div>
-  );
+  </div>
 }
 
 export default App;
